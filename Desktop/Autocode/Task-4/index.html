@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Landing Page Hero Section</title>
+</head>
+<body>
+    <div class="hero">
+        <nav class="nav-container">
+            <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+            <ul class="nav-links">
+                <button class="btn">About</button>
+                <button class="btn">Services</button>
+                <button class="btn">Contact</button>
+            </ul>
+        </nav>
+        <div class="container">
+            <div class="hero-inner">
+                <h1 class="hero-title">Unlock Your Potential</h1>
+                <p class="hero-text">Join the community that empowers you to achieve greatness</p>
+                <button class="hero-btn">Get Started</button>
+            </div>
+    </div>
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector(".nav-links");
+            navLinks.classList.toggle("active");
+        }
+    </script>
+</body>
+</html>
