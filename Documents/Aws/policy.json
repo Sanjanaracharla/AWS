@@ -1,0 +1,17 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+          {
+             "Sid": "DenyDeleteObjects",
+             "Effect": "Deny",
+             "Principal": {
+                "AWS": "<iam_role_arn>"
+             },
+             "Action": "s3:DeleteObject",
+             "Resource": [
+                "arn:aws:s3:::cmtr-f452cf26-iam-peld-bucket-249135/*"
+             ]
+          }
+    ]
+ }
+ 
