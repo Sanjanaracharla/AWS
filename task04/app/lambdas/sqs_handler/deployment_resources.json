@@ -4,25 +4,9 @@
     "principal_service": "lambda",
     "custom_policies": [
       "lambda-basic-execution"
+    
     ],
     "resource_type": "iam_role",
-    "tags": {},
-    "inline_policies": {
-      "AllowSQSPermissions":{
-        "Version": "2012-10-17",
-        "Statement": [
-          {
-            "Effect": "Allow",
-            "Action": [
-              "sqs:ReceiveMessage",
-              "sqs:DeleteMessage",
-              "sqs:GetQueueAttributes",
-              "sqs:ChangeMessageVisibility"
-            ],
-            "Resource": "arn:aws:sqs:your-region:your-account-id:your-queue-name"
-      }
-      ]
-    }
-    }
+    "tags": {}
   }
 }
