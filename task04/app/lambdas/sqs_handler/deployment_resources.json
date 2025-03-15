@@ -3,17 +3,15 @@
     "predefined_policies": [],
     "principal_service": "lambda",
     "custom_policies": [
-      "lambda-basic-execution",
       {
         "Effect": "Allow",
         "Action": [
-            "sqs:ReceiveMessage",
-            "sqs:DeleteMessage",
-            "sqs:GetQueueAttributes"
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes"
         ],
         "Resource": "arn:aws:sqs:eu-central-1:890742610830:async_queue"
-    }
-    
+      }
     ],
     "resource_type": "iam_role",
     "tags": {}
