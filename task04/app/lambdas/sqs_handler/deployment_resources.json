@@ -6,6 +6,18 @@
       "lambda-basic-execution"
     ],
     "resource_type": "iam_role",
-    "tags": {}
+    "tags": {},
+    "inline_policies": {
+      "AllowSQSPermissions": {
+        "Effect": "Allow",
+        "Action": [
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes",
+          "sqs:ChangeMessageVisibility"
+        ],
+        "Resource": "arn:aws:sqs:your-region:your-account-id:your-queue-name"
+      }
+    }
   }
 }
