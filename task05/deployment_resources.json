@@ -39,13 +39,13 @@
   "task5_api": {
     "resource_type": "api_gateway",
     "deploy_stage": "api",
-    "enable_proxy": true, 
     "dependencies": [],
     "resources": {
       "/events": {
         "enable_cors": false,
         "POST": {
           "authorization_type": "NONE",
+          "enable_proxy": true,
           "integration_type": "lambda",
           "lambda_name": "api_handler",
           "api_key_required": false,
