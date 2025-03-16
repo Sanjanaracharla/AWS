@@ -1,9 +1,11 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { PutCommand } from "@aws-sdk/lib-dynamodb";
+import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { v4 as uuidv4 } from "uuid";
 
-const dynamoDBClient = new DynamoDBClient({ region: "eu-central-1" });
-const TABLE_NAME = process.env.TARGET_TABLE ;
+const dynamoDBClient = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(dynamoDBClient); // Corrected initialization
+
+const TABLE_NAME = process.env.TARGET_TABLE;
 
 export const handler = async (event) => {
     try {
@@ -41,7 +43,7 @@ export const handler = async (event) => {
         console.log("Saving to DynamoDB:", JSON.stringify(eventItem, null, 2));
 
         try {
-            await dynamoDBClient.send(new PutCommand({
+            await docClient.send(new PutCommand({
                 TableName: TABLE_NAME,
                 Item: eventItem,
             }));
@@ -61,11 +63,10 @@ export const handler = async (event) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                statusCode: 201,
+                message: "Event created successfully",
                 event: eventItem
             })
         };
-
 
     } catch (error) {
         console.error("Error processing request:", error);
