@@ -3,13 +3,21 @@ import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { v4 as uuidv4 } from "uuid";
 
 const dynamoDBClient = new DynamoDBClient({});
-const docClient = DynamoDBDocumentClient.from(dynamoDBClient); // Corrected initialization
+const docClient = DynamoDBDocumentClient.from(dynamoDBClient);
 
 const TABLE_NAME = process.env.TARGET_TABLE;
 
 export const handler = async (event) => {
     try {
         console.log("Received event:", JSON.stringify(event, null, 2));
+
+        if (!TABLE_NAME) {
+            console.error("Error: TARGET_TABLE environment variable is not set.");
+            return {
+                statusCode: 500,
+                body: JSON.stringify({ message: "Server configuration error: Table name missing." }),
+            };
+        }
 
         let inputEvent;
         try {
@@ -22,11 +30,12 @@ export const handler = async (event) => {
             };
         }
 
-        if (!inputEvent?.principalId || inputEvent?.content === undefined) {
+        // Corrected validation to use 'body' instead of 'content'
+        if (!inputEvent?.principalId || !inputEvent?.body) {
             console.error("Validation failed: Missing required fields", inputEvent);
             return {
                 statusCode: 400,
-                body: JSON.stringify({ message: "Invalid input: principalId and content are required" }),
+                body: JSON.stringify({ message: "Invalid input: principalId and body are required" }),
             };
         }
 
@@ -37,7 +46,7 @@ export const handler = async (event) => {
             id: eventId,
             principalId: Number(inputEvent.principalId),
             createdAt,
-            body: inputEvent.content,
+            body: inputEvent.body,  // Changed from 'content' to 'body'
         };
 
         console.log("Saving to DynamoDB:", JSON.stringify(eventItem, null, 2));
@@ -55,17 +64,12 @@ export const handler = async (event) => {
             };
         }
 
-        console.log("Saved successfully");
-
         return {
             statusCode: 201,
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                message: "Event created successfully",
-                event: eventItem
-            })
+            body: JSON.stringify(eventItem)  // Directly return the event item
         };
 
     } catch (error) {
