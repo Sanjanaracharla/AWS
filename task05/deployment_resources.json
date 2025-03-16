@@ -42,10 +42,10 @@
     "dependencies": [],
     "resources": {
       "/events": {
+        "enable_proxy": true,
         "enable_cors": false,
         "POST": {
           "authorization_type": "NONE",
-          "enable_proxy": true,
           "integration_type": "lambda",
           "lambda_name": "api_handler",
           "api_key_required": false,
