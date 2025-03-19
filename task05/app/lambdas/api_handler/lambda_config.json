@@ -16,7 +16,7 @@
   ],
   "event_sources": [],
   "env_variables": {
-    "TARGET_TABLE": "${target_table}"
+    "TABLE_NAME": "${target_table}"
   },
   "publish_version": true,
   "alias": "${lambdas_alias_name}",
