@@ -1967,3 +1967,5 @@ build_projects_mapping:
 lambdas:
   sqs_handler:
     runtime: nodejs
+  api_handler:
+    runtime: nodejs
