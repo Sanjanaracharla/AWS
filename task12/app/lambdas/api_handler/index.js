@@ -258,7 +258,6 @@ async function handleGetReservations(event) {
   });
 }
 
-//Create Reservation
 async function handleCreateReservation(event) {
   try {
     const username = getUsernameFromToken(event);
@@ -335,7 +334,6 @@ async function handleCreateReservation(event) {
   }
 }
 
-// Helper function to extract username from token
 function getUsernameFromToken(event) {
   try {
     if (event.requestContext && event.requestContext.authorizer &&
